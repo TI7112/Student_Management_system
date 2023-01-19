@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+    <script src="//cdn.tailwindcss.com"></script>
+    <style>
+        input, select{
+            width: 100%;
+            border: 1px solid gray;
+            outline: none;
+        }
+
+        input:hover{
+            outline: 2px;
+            outline-color: rgb(140, 34, 216);
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <div class="flex justify-between px-12 bg-indigo-600 text-white">
+        <a class="text-5xl font-serif font-semibold py-4" href="/">Student Management System</a>
+    </div>
+    <div class="flex justify-center">
+        <div class="w-1/4 bg-indigo-500 min-h-[90vh] p-10"> 
+            <h1 class="text-2xl font-semibold pb-5 font-serif">Insert Student</h1>
+            <form action="{% url 'home' %}" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" class="mt-5 bg-indigo-700 text-white font-semibold py-1 hover:bg-indigo-800 border-indigo-500" value="Submit">
+            </form>
+        </div>
+        <div class="w-3/4 px-12">
+            <div class="flex items-center justify-between">
+            <h1 class="text-4xl font-serif font-semibold py-6">Students Details</h1>
+            
+            <form action="{% url 'filter' %}" method="get">
+                <select onchange="this.form.submit()" name="city" id=""  class="w-36 border-slate-400 p-2 font-semibold rounded-lg">
+                    <option disabled selected>Select city</option>
+                    {% for curElem in students%}
+                    <option value="{{curElem.city}}">{{curElem.city}}</option>
+                    {% endfor %}
+                </select>
+            </form>
+
+
+            <form action="{% url 'search' %}" class="flex items-center" method="get">
+                
+                <input type="search" size="45" class="px-4 py-2 outline-none border-slate-400 rounded-l-lg" name="search_keyword" id="">
+                <input type="submit" class="bg-rose-500 text-white font-semibold w-20 rounded-r-lg hover:bg-red-600 border-red-600 py-2" id="" value="go">
+            </form>
+            </div>
+            <table class="w-full border-2">
+                <tr>
+                    <td class="text-xl font-semibold py-2 border-r-2 px-5 border-b-2">id</td>
+                    <td class="text-xl font-semibold py-2 border-r-2 px-5 border-b-2">Name</td>
+                    <td class="text-xl font-semibold py-2 border-r-2 px-5 border-b-2">Fathers name</td>
+                    <td class="text-xl font-semibold py-2 border-r-2 px-5 border-b-2">Contact</td>
+                    <td class="text-xl font-semibold py-2 border-r-2 px-5 border-b-2">City</td>
+                    <td class="text-xl font-semibold py-2 border-r-2 px-5 border-b-2">Action</td>
+                </tr>
+                {% for curElem in students%}
+                <tr>
+                    <td class="text-xl font-semibold py-2 border-r-2 px-5 border-b-2">{{ curElem.id }}</td>
+                    <td class="text-xl font-semibold py-2 border-r-2 px-5 border-b-2">{{ curElem.name }}</td>
+                    <td class="text-xl font-semibold py-2 border-r-2 px-5 border-b-2">{{ curElem.father_name }}</td>
+                    <td class="text-xl font-semibold py-2 border-r-2 px-5 border-b-2">{{ curElem.contact }}</td>
+                    <td class="text-xl font-semibold py-2 border-r-2 px-5 border-b-2">{{ curElem.city }}</td>
+                    <td class="text-xl font-semibold py-2 border-r-2 px-5 border-b-2 ">
+                        <a href="{% url 'delete' curElem.id %}" class="bg-red-500 hover:bg-red-800 px-5 py-1 text-white rounded-md">Delete</a>
+                        <a href="{% url 'edit' curElem.id %}" class="bg-emerald-500 hover:bg-emerald-800 px-5 py-1 text-white rounded-md">Edit</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+    <script src="//cdn.tailwindcss.com"></script>
+    <style>
+        input, select{
+            width: 100%;
+            border: 1px solid gray;
+            outline: none;
+        }
+
+        input:hover{
+            outline: 2px;
+            outline-color: rgb(140, 34, 216);
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <div class="flex justify-between px-12 bg-indigo-600 text-white">
+        <a class="text-5xl font-serif font-semibold py-4" href="/">Student Management System</a>
+    </div>
+    <div class="flex justify-center min-h-[70vh] items-center">
+        <div class="w-1/4 bg-indigo-500 p-10"> 
+            <h1 class="text-2xl font-semibold pb-5 font-serif">Manage Student</h1>
+            <form class="flex flex-col gap-5" action="" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" class="mt-5 bg-indigo-700 text-white font-semibold py-1 hover:bg-indigo-800 border-indigo-500" value="update records">
+            </form>
+        </div>
+        
+    </div>
+</body>
+</html>
